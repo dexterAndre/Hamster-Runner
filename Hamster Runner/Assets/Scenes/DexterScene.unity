@@ -799,7 +799,7 @@ GameObject:
   - component: {fileID: 743435882}
   - component: {fileID: 743435881}
   m_Layer: 5
-  m_Name: btn_no
+  m_Name: btn_quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1353,7 +1353,7 @@ RectTransform:
   - {fileID: 715810532}
   - {fileID: 743435880}
   m_Father: {fileID: 1677326786}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.65882355}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1480,8 +1480,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 2130529140}
   - {fileID: 1530410965}
+  - {fileID: 2130529140}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1501,6 +1501,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ba5928c900fa84987d89397d3b35cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _transitionDuration: 1
+  _nextState: 0
+  pnl_MM: {fileID: 1530410964}
+  btn_MM_start: {fileID: 715810533}
+  btn_MM_quit: {fileID: 743435881}
+  pnl_PM: {fileID: 2130529139}
+  btn_PM_yes: {fileID: 979460620}
+  btn_PM_no: {fileID: 321263357}
 --- !u!1 &1776102070
 GameObject:
   m_ObjectHideFlags: 0
@@ -1767,7 +1775,7 @@ RectTransform:
   - {fileID: 979460619}
   - {fileID: 321263356}
   m_Father: {fileID: 1677326786}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
