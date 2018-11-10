@@ -63,7 +63,7 @@ public class GameplayScript : MonoBehaviour
     {
         //We need a way to set a random button and assign it a correct tag accordingly. 
         curObject = Instantiate(newButton);
-        float newnumber = Random.Range(0, 2);
+        float newnumber = Random.Range(0, 5);
         //Sprite cursprite = curObject.GetComponent<SpriteRenderer>().sprite;
         if (newnumber == 0)
         {
