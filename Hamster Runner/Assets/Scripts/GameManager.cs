@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float _gameTimer = 0f;
     [SerializeField]
-    private float _levelDuration = 60f;
+    private float _levelDuration = 5f;
     public bool _paused = true;
 
     // Final result
@@ -45,13 +45,16 @@ public class GameManager : MonoBehaviour
     {
         if (!_paused)
         {
-            _gameTimer += Time.deltaTime;
-            if (_gameTimer >= _levelDuration)
+            if (_resultTimer <= 0f)
             {
-                // End of round
-                _resultTimer = Time.deltaTime;
-                txt_finalScore.GetComponent<Text>().text = "Final Score: " + _score.ToString();
-                txt_finalScore.SetActive(true);
+                _gameTimer += Time.deltaTime;
+                if (_gameTimer >= _levelDuration)
+                {
+                    // End of round
+                    _resultTimer = Time.deltaTime;
+                    txt_finalScore.GetComponent<Text>().text = "Final Score: " + _score.ToString();
+                    txt_finalScore.SetActive(true);
+                }
             }
         }
 

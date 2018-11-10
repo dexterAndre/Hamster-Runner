@@ -65,11 +65,14 @@ public class GUIScript : MonoBehaviour
             txt_score = GameObject.Find("Score");
         if (txt_timer == null)
             txt_timer = GameObject.Find("Timer");
+        if (txt_finalScore == null)
+            txt_finalScore = GameObject.Find("Final Score");
 
         // Disables pause menu upon awake
         pnl_PM.SetActive(false);
         txt_score.SetActive(false);
         txt_timer.SetActive(false);
+        txt_finalScore.SetActive(false);
     }
 
     private void Update()
@@ -263,6 +266,9 @@ public class GUIScript : MonoBehaviour
     public void ButtonYes()
     {
         _nextState = NextState.QuitToMainMenu;
+        txt_score.SetActive(false);
+        txt_timer.SetActive(false);
+        txt_finalScore.SetActive(false);
         Time.timeScale = 1f;
         StartTimer();
     }
