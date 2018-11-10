@@ -17,9 +17,18 @@ public class GUIScript : MonoBehaviour
         Start,
         Resume,
         QuitToDesktop,
-        QuitToMainMenu
+        QuitToMainMenu,
+        PauseMenu
+    };
+    [System.Serializable]
+    public enum GameState
+    {
+        Playing, 
+        Paused,
+        Menu
     };
     [Header("Menu Logic")]
+    public GameState _gameState = GameState.Playing;
     public NextState _nextState = NextState.None;
 
     // References
@@ -43,18 +52,51 @@ public class GUIScript : MonoBehaviour
             btn_PM_yes = GameObject.Find("btn_yes").GetComponent<Button>();
         if (btn_PM_no == null)
             btn_PM_no = GameObject.Find("btn_no").GetComponent<Button>();
+
+        // Disables pause menu upon awake
+        pnl_PM.SetActive(false);
     }
 
     private void Update()
     {
+        // GUI input
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (_timer > 0f)
+            {
+                // Complete any ongoing transitions
+                ChooseAction();
+            }
+            StartTimer();
+
+            if (_gameState == GameState.Playing)
+            {
+                // Queues up for pause menu transition
+                Time.timeScale = 0f;
+                _nextState = NextState.PauseMenu;
+            }
+            else if (_gameState == GameState.Paused)
+            {
+                // Resumes game
+                _nextState = NextState.Resume;
+            }
+        }
+
+        // Transition timer handling
         if (_timer > 0f)
         {
             _timer += Time.deltaTime;
             if (_timer >= _transitionDuration)
             {
                 _timer = 0f;
+                ChooseAction();
             }
         }
+    }
+
+    private void StartTimer()
+    {
+        _timer += Time.deltaTime;
     }
 
     private void ChooseAction()
@@ -72,6 +114,8 @@ public class GUIScript : MonoBehaviour
             }
             case NextState.Resume:
             {
+                // Resumes time
+                Time.timeScale = 1f;
                 break;
             }
             case NextState.QuitToDesktop:
@@ -79,6 +123,14 @@ public class GUIScript : MonoBehaviour
                 break;
             }
             case NextState.QuitToMainMenu:
+            {
+                break;
+            }
+            case NextState.PauseMenu:
+            {
+                break;
+            }
+            default:
             {
                 break;
             }
