@@ -44,6 +44,7 @@ public class GUIScript : MonoBehaviour
     [Header("Misc.")]
     public GameObject txt_score;    // Score text
     public GameObject txt_timer;    // Timer text
+    public GameObject txt_finalScore;   // Final score text
 
     private void Awake()
     {
