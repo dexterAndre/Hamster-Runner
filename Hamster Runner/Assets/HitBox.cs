@@ -14,23 +14,7 @@ public class HitBox : MonoBehaviour
 	void Update () {
 	}
     //We don't want to be destroyed before it has gone a whole round, check that. 
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//        canCollide = other.gameObject.GetComponent<Timer>().canCollide;
-//        if (canCollide)
-//        {
-//            Debug.Log("canCOLLIDEUP");
-//            if (other.CompareTag("Up") && Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
-//            {
-//                Debug.Log("Pressed up");
-//                Destroy(other.gameObject);
-//            }
-//            else if (other.CompareTag("Down"))
-//            {
-//                Destroy(other.gameObject);
-//            }
-//        }
-//    }
+
 
     private void OnTriggerStay2D(Collider2D other)
     {

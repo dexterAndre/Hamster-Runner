@@ -26,6 +26,11 @@ public class GameplayScript : MonoBehaviour
     public Sprite down;
 
     public GameObject curObject;
+    private bool start = false;
+    public void StartGame()
+    {
+        start = true;
+    }
 
 	void Start ()
     {
@@ -38,29 +43,31 @@ public class GameplayScript : MonoBehaviour
 
     void Update()
     {
-        roundTimer += Time.deltaTime;
-        subTimer += Time.deltaTime;
-        rot -= rotAngle * Time.deltaTime;
-        
-        if(rot <= 360)
+        if (start)
         {
-            rot += 360;
+            roundTimer += Time.deltaTime;
+            subTimer += Time.deltaTime;
+            rot -= rotAngle * Time.deltaTime;
+
+            if (rot <= 360)
+            {
+                rot += 360;
+            }
+
+            transform.rotation = Quaternion.Euler(0, 0, rot);
+
+            if (roundTimer >= 7)
+            {
+                CreateButton();
+                roundTimer = 0;
+
+            }
+            if (subTimer >= 1f)
+            {
+                CreateButton();
+                subTimer = 0;
+            }
         }
-
-        transform.rotation = Quaternion.Euler(0, 0, rot);
-
-        if(roundTimer >= 7)
-        {
-            CreateButton();
-            roundTimer = 0;
-
-        }
-        if (subTimer >= 1f)
-        {
-            CreateButton();
-            subTimer = 0;
-        }
-
     }
     //spawning of buttons
     private GameObject CreateButton()

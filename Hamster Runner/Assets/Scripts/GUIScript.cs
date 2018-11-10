@@ -254,6 +254,7 @@ public class GUIScript : MonoBehaviour
         _nextState = NextState.Start;
         Time.timeScale = 1f;
         StartTimer();
+        GameObject.Find("SwingMeRoundBabe").GetComponent<GameplayScript>().StartGame();
     }
 
     public void ButtonQuit()
