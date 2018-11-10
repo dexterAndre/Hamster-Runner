@@ -66,6 +66,7 @@ public class GUIScript : MonoBehaviour
             {
                 // Complete any ongoing transitions
                 ChooseAction();
+                _timer = Time.deltaTime;
             }
             StartTimer();
 
@@ -91,6 +92,17 @@ public class GUIScript : MonoBehaviour
                 _timer = 0f;
                 ChooseAction();
             }
+
+            // Transition functionalities
+            switch (_nextState)
+            {
+                // If starting game, fade out main menu background
+                case NextState.Start:
+                    {
+                        pnl_MM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f - _timer / _transitionDuration);
+                        break;
+                    }
+            }
         }
     }
 
@@ -104,56 +116,90 @@ public class GUIScript : MonoBehaviour
         switch (_nextState)
         {
             case NextState.None:
-            {
-                
-                break;
-            }
+                {
+                    Debug.Log("Choose Action: None");
+
+
+
+                    break;
+                }
             case NextState.Start:
-            {
-                break;
-            }
+                {
+                    Debug.Log("Choose Action: Start");
+
+                    // Restoring color
+                    pnl_MM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+
+                    // Disabling panel
+                    pnl_MM.SetActive(false);
+
+                    break;
+                }
             case NextState.Resume:
-            {
-                // Resumes time
-                Time.timeScale = 1f;
-                break;
-            }
+                {
+                    Debug.Log("Choose Action: Resume");
+
+                    // Resumes time
+                    Time.timeScale = 1f;
+
+                    break;
+                }
             case NextState.QuitToDesktop:
-            {
-                break;
-            }
+                {
+                    Debug.Log("Choose Action: QuitToDesktop");
+
+
+
+                    break;
+                }
             case NextState.QuitToMainMenu:
-            {
-                break;
-            }
+                {
+                    Debug.Log("Choose Action: QuitToMainMenu");
+
+
+
+                    break;
+                }
             case NextState.PauseMenu:
-            {
-                break;
-            }
+                {
+                    Debug.Log("Choose Action: PauseMenu");
+
+
+
+                    break;
+                }
             default:
-            {
-                break;
-            }
+                {
+                    Debug.Log("Choose Action: Default");
+
+
+
+                    break;
+                }
         }
     }
 
     public void ButtonStart()
     {
-
+        _nextState = NextState.Start;
+        _timer = Time.deltaTime;
     }
 
     public void ButtonQuit()
     {
-
+        _nextState = NextState.QuitToDesktop;
+        _timer = Time.deltaTime;
     }
 
     public void ButtonYes()
     {
-
+        _nextState = NextState.QuitToMainMenu;
+        _timer = Time.deltaTime;
     }
 
     public void ButtonNo()
     {
-
+        _nextState = NextState.Resume;
+        _timer = Time.deltaTime;
     }
 }
