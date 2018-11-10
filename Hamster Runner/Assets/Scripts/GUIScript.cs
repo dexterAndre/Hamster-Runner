@@ -30,6 +30,7 @@ public class GUIScript : MonoBehaviour
     [Header("Menu Logic")]
     public GameState _gameState = GameState.Menu;
     public NextState _nextState = NextState.None;
+    public GameManager _gameManager = null;
 
     // References
     [Header("Main Menu")]
@@ -40,10 +41,16 @@ public class GUIScript : MonoBehaviour
     public GameObject pnl_PM;       // Pause menu panel
     public Button btn_PM_yes;       // Pause menu yes button
     public Button btn_PM_no;        // Pause menu no button
+    [Header("Misc.")]
+    public GameObject txt_score;    // Score text
+    public GameObject txt_timer;    // Timer text
 
     private void Awake()
     {
         // Finding all button references if not set
+        if (_gameManager == null)
+            _gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+
         if (btn_MM_start == null)
             btn_MM_start = GameObject.Find("btn_start").GetComponent<Button>();
         if (btn_MM_quit == null)
@@ -52,6 +59,11 @@ public class GUIScript : MonoBehaviour
             btn_PM_yes = GameObject.Find("btn_yes").GetComponent<Button>();
         if (btn_PM_no == null)
             btn_PM_no = GameObject.Find("btn_no").GetComponent<Button>();
+
+        if (txt_score == null)
+            txt_score = GameObject.Find("Score");
+        if (txt_timer == null)
+            txt_timer = GameObject.Find("Timer");
 
         // Disables pause menu upon awake
         pnl_PM.SetActive(false);
@@ -75,6 +87,7 @@ public class GUIScript : MonoBehaviour
                 // Queues up for pause menu transition
                 Time.timeScale = 0f;
                 _gameState = GameState.Paused;
+                _gameManager.Pause();
                 _nextState = NextState.PauseMenu;
             }
             else if (_gameState == GameState.Paused)
@@ -152,6 +165,9 @@ public class GUIScript : MonoBehaviour
                     // Disabling panel
                     pnl_MM.SetActive(false);
 
+                    // Signalling Game Manager
+                    _gameManager.Restart();
+
                     break;
                 }
             case NextState.Resume:
@@ -171,6 +187,9 @@ public class GUIScript : MonoBehaviour
 
                     // Resumes time
                     Time.timeScale = 1f;
+
+                    // Signalling Game Manager
+                    _gameManager.Resume();
 
                     break;
                 }
