@@ -20,12 +20,16 @@ public class GameplayScript : MonoBehaviour
     private Transform instTransform;
     public GameObject newButton;
 
+    public Sprite right;
+    public Sprite left;
     public Sprite up;
     public Sprite down;
+
     public GameObject curObject;
 
 	void Start ()
     {
+        rot = 0;
         box = GameObject.Find("HitBox").GetComponent<BoxCollider>();
         //instTransform.position = new Vector3(0, -1, -1);
         //instTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
@@ -63,7 +67,7 @@ public class GameplayScript : MonoBehaviour
     {
         //We need a way to set a random button and assign it a correct tag accordingly. 
         curObject = Instantiate(newButton);
-        float newnumber = Random.Range(0, 5);
+        float newnumber = Random.Range(0, 4);
         //Sprite cursprite = curObject.GetComponent<SpriteRenderer>().sprite;
         if (newnumber == 0)
         {
@@ -74,6 +78,16 @@ public class GameplayScript : MonoBehaviour
         {
             curObject.GetComponent<SpriteRenderer>().sprite = down;
             curObject.tag = "Down";
+        }
+        else if (newnumber == 2)
+        {
+            curObject.GetComponent<SpriteRenderer>().sprite = left;
+            curObject.tag = "Left";
+        }
+        else if (newnumber == 3)
+        {
+            curObject.GetComponent<SpriteRenderer>().sprite = right;
+            curObject.tag = "Right";
         }
         else
         {

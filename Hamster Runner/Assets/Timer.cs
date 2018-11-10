@@ -9,7 +9,7 @@ public class Timer : MonoBehaviour
 
 	void Start ()
     {
-        
+        timer = 0f;
 	}
 	
 	void Update ()
