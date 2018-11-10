@@ -24,18 +24,22 @@ public class HitBox : MonoBehaviour
             Debug.Log("canCOLLIDEDOWN");
             if (other.CompareTag("Up") && Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) //Add input here to check
             {
+                GameObject.Find("Game Manager").GetComponent<GameManager>()._score += 1;
                 Destroy(other.gameObject);
             }
             else if (other.CompareTag("Down") && Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
+                GameObject.Find("Game Manager").GetComponent<GameManager>()._score += 1;
                 Destroy(other.gameObject);
             }
             else if(other.CompareTag("Left") && Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
             {
+                GameObject.Find("Game Manager").GetComponent<GameManager>()._score += 1;
                 Destroy(other.gameObject);
             }
             else if(other.CompareTag("Right") && Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
             {
+                GameObject.Find("Game Manager").GetComponent<GameManager>()._score += 1;
                 Destroy(other.gameObject);
             }
         }
