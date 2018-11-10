@@ -46,6 +46,14 @@ public class HitBox : MonoBehaviour
             {
                 Destroy(other.gameObject);
             }
+            else if(other.CompareTag("Left") && Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                Destroy(other.gameObject);
+            }
+            else if(other.CompareTag("Right") && Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            {
+                Destroy(other.gameObject);
+            }
         }
     }
 
@@ -59,6 +67,14 @@ public class HitBox : MonoBehaviour
                 Destroy(collision.gameObject);
             }
             else if (collision.CompareTag("Down"))
+            {
+                Destroy(collision.gameObject);
+            }
+            else if (collision.CompareTag("Left"))
+            {
+                Destroy(collision.gameObject);
+            }
+            else if (collision.CompareTag("Right"))
             {
                 Destroy(collision.gameObject);
             }
