@@ -28,7 +28,7 @@ public class GUIScript : MonoBehaviour
         Menu
     };
     [Header("Menu Logic")]
-    public GameState _gameState = GameState.Playing;
+    public GameState _gameState = GameState.Menu;
     public NextState _nextState = NextState.None;
 
     // References
@@ -60,7 +60,7 @@ public class GUIScript : MonoBehaviour
     private void Update()
     {
         // GUI input
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") && _gameState != GameState.Menu)
         {
             if (_timer > 0f)
             {
@@ -74,11 +74,13 @@ public class GUIScript : MonoBehaviour
             {
                 // Queues up for pause menu transition
                 Time.timeScale = 0f;
+                _gameState = GameState.Paused;
                 _nextState = NextState.PauseMenu;
             }
             else if (_gameState == GameState.Paused)
             {
                 // Resumes game
+                Time.timeScale = 1f;
                 _nextState = NextState.Resume;
             }
         }
@@ -86,13 +88,6 @@ public class GUIScript : MonoBehaviour
         // Transition timer handling
         if (_timer > 0f)
         {
-            _timer += Time.deltaTime;
-            if (_timer >= _transitionDuration)
-            {
-                _timer = 0f;
-                ChooseAction();
-            }
-
             // Transition functionalities
             switch (_nextState)
             {
@@ -102,6 +97,27 @@ public class GUIScript : MonoBehaviour
                         pnl_MM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f - _timer / _transitionDuration);
                         break;
                     }
+                // If pausing game, fade in pause menu (for now, just instantly pop up)
+                case NextState.PauseMenu:
+                    {
+                        pnl_PM.SetActive(true);
+                        pnl_PM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+                        break;
+                    }
+                // If resuming game, fade out pause menu
+                case NextState.Resume:
+                    {
+                        pnl_PM.SetActive(true);
+                        pnl_PM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f - _timer / _transitionDuration);
+                        break;
+                    }
+            }
+
+            _timer += Time.deltaTime;
+            if (_timer >= _transitionDuration)
+            {
+                _timer = 0f;
+                ChooseAction();
             }
         }
     }
@@ -127,6 +143,9 @@ public class GUIScript : MonoBehaviour
                 {
                     Debug.Log("Choose Action: Start");
 
+                    // Setting game state
+                    _gameState = GameState.Playing;
+
                     // Restoring color
                     pnl_MM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
 
@@ -139,6 +158,17 @@ public class GUIScript : MonoBehaviour
                 {
                     Debug.Log("Choose Action: Resume");
 
+                    // Setting game state
+                    _gameState = GameState.Playing;
+
+                    // Restoring color
+                    pnl_PM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+                    pnl_MM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+
+                    // Disabling panel
+                    pnl_PM.SetActive(false);
+                    pnl_MM.SetActive(false);
+
                     // Resumes time
                     Time.timeScale = 1f;
 
@@ -148,7 +178,8 @@ public class GUIScript : MonoBehaviour
                 {
                     Debug.Log("Choose Action: QuitToDesktop");
 
-
+                    // Quitting application
+                    Application.Quit();
 
                     break;
                 }
@@ -156,7 +187,16 @@ public class GUIScript : MonoBehaviour
                 {
                     Debug.Log("Choose Action: QuitToMainMenu");
 
+                    // Setting game state
+                    _gameState = GameState.Menu;
 
+                    // Restoring color
+                    pnl_PM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+                    pnl_MM.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+
+                    // Disabling panel
+                    pnl_PM.SetActive(false);
+                    pnl_MM.SetActive(true);
 
                     break;
                 }
@@ -164,7 +204,8 @@ public class GUIScript : MonoBehaviour
                 {
                     Debug.Log("Choose Action: PauseMenu");
 
-
+                    // Setting game state
+                    _gameState = GameState.Paused;
 
                     break;
                 }
@@ -182,24 +223,28 @@ public class GUIScript : MonoBehaviour
     public void ButtonStart()
     {
         _nextState = NextState.Start;
-        _timer = Time.deltaTime;
+        Time.timeScale = 1f;
+        StartTimer();
     }
 
     public void ButtonQuit()
     {
         _nextState = NextState.QuitToDesktop;
-        _timer = Time.deltaTime;
+        Time.timeScale = 1f;
+        _timer = _transitionDuration - Time.deltaTime;
     }
 
     public void ButtonYes()
     {
         _nextState = NextState.QuitToMainMenu;
-        _timer = Time.deltaTime;
+        Time.timeScale = 1f;
+        StartTimer();
     }
 
     public void ButtonNo()
     {
         _nextState = NextState.Resume;
-        _timer = Time.deltaTime;
+        Time.timeScale = 1f;
+        StartTimer();
     }
 }

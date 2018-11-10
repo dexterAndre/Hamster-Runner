@@ -1546,6 +1546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transitionDuration: 1
+  _gameState: 2
   _nextState: 0
   pnl_MM: {fileID: 1530410964}
   btn_MM_start: {fileID: 715810533}
