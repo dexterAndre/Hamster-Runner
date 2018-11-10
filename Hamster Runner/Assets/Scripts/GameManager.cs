@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     public GUIScript guiScript = null;
+    public AudioSource _backgroundMusic = null;
 
     private void Awake()
     {
@@ -77,6 +78,9 @@ public class GameManager : MonoBehaviour
     {
         _paused = false;
         _gameTimer = 0f;
+
+        if (_backgroundMusic != null)
+            _backgroundMusic.Play();
     }
 
     public void Resume()
