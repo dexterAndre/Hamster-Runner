@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
 
     [Header("Score")]
     public int _score = 0;
-    GameObject txt_score = null;
-    GameObject txt_timer = null;
-    GameObject txt_finalScore = null;
+    public GameObject txt_score = null;
+    public GameObject txt_timer = null;
+    public GameObject txt_finalScore = null;
 
     [Header("References")]
     public GUIScript guiScript = null;
