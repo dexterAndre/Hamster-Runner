@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [Header("Score")]
     public int _score = 0;
     GameObject txt_score = null;
+    GameObject txt_timer = null;
+    GameObject txt_finalScore = null;
 
     private void Awake()
     {
@@ -23,6 +25,10 @@ public class GameManager : MonoBehaviour
 
         if (txt_score == null)
             txt_score = GameObject.Find("Score");
+        if (txt_timer == null)
+            txt_timer = GameObject.Find("Timer");
+        if (txt_finalScore == null)
+            txt_finalScore = GameObject.Find("Final Score");
     }
 
     private void Update()
@@ -34,6 +40,7 @@ public class GameManager : MonoBehaviour
 
         // Setting score, very hacky, I know :(
         txt_score.GetComponent<Text>().text = "Score: " + _score.ToString();
+        txt_timer.GetComponent<Text>().text = "Timer: " + ((int)((_levelDuration - _gameTimer))).ToString();
     }
 
     public void Restart()

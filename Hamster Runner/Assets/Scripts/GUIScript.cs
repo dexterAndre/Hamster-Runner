@@ -67,6 +67,8 @@ public class GUIScript : MonoBehaviour
 
         // Disables pause menu upon awake
         pnl_PM.SetActive(false);
+        txt_score.SetActive(false);
+        txt_timer.SetActive(false);
     }
 
     private void Update()
@@ -164,6 +166,10 @@ public class GUIScript : MonoBehaviour
 
                     // Disabling panel
                     pnl_MM.SetActive(false);
+
+                    // Enabling gui text
+                    txt_score.SetActive(true);
+                    txt_timer.SetActive(true);
 
                     // Signalling Game Manager
                     _gameManager.Restart();
